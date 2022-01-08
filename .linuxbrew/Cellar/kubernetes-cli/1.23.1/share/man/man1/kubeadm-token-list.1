@@ -1,0 +1,64 @@
+.nh
+.TH KUBERNETES(1) kubernetes User Manuals
+Eric Paris
+Jan 2015
+
+.SH NAME
+.PP
+kubeadm token list \- List bootstrap tokens on the server
+
+
+.SH SYNOPSIS
+.PP
+\fBkubeadm token list\fP [OPTIONS]
+
+
+.SH DESCRIPTION
+.PP
+This command will list all bootstrap tokens for you.
+
+
+.SH OPTIONS
+.PP
+\fB\-\-allow\-missing\-template\-keys\fP=true
+	If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+
+.PP
+\fB\-o\fP, \fB\-\-experimental\-output\fP="text"
+	Output format. One of: text|json|yaml|go\-template|go\-template\-file|template|templatefile|jsonpath|jsonpath\-as\-json|jsonpath\-file.
+
+.PP
+\fB\-\-show\-managed\-fields\fP=false
+	If true, keep the managedFields when printing objects in JSON or YAML format.
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.PP
+\fB\-\-azure\-container\-registry\-config\fP=""
+	Path to the file containing Azure container registry configuration information.
+
+.PP
+\fB\-\-dry\-run\fP=false
+	Whether to enable dry\-run mode or not
+
+.PP
+\fB\-\-kubeconfig\fP="/etc/kubernetes/admin.conf"
+	The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+
+.PP
+\fB\-\-rootfs\fP=""
+	[EXPERIMENTAL] The path to the 'real' host root filesystem.
+
+.PP
+\fB\-\-version\fP=false
+	Print version information and quit
+
+
+.SH SEE ALSO
+.PP
+\fBkubeadm\-token(1)\fP,
+
+
+.SH HISTORY
+.PP
+January 2015, Originally compiled by Eric Paris (eparis at redhat dot com) based on the kubernetes source material, but hopefully they have been automatically generated since!

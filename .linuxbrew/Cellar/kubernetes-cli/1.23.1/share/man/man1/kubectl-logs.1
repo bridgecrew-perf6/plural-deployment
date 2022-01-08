@@ -1,0 +1,234 @@
+.nh
+.TH KUBERNETES(1) kubernetes User Manuals
+Eric Paris
+Jan 2015
+
+.SH NAME
+.PP
+kubectl logs \- Print the logs for a container in a pod
+
+
+.SH SYNOPSIS
+.PP
+\fBkubectl logs\fP [OPTIONS]
+
+
+.SH DESCRIPTION
+.PP
+Print the logs for a container in a pod or specified resource. If the pod has only one container, the container name is optional.
+
+
+.SH OPTIONS
+.PP
+\fB\-\-all\-containers\fP=false
+	Get all containers' logs in the pod(s).
+
+.PP
+\fB\-c\fP, \fB\-\-container\fP=""
+	Print the logs of this container
+
+.PP
+\fB\-f\fP, \fB\-\-follow\fP=false
+	Specify if the logs should be streamed.
+
+.PP
+\fB\-\-ignore\-errors\fP=false
+	If watching / following pod logs, allow for any errors that occur to be non\-fatal
+
+.PP
+\fB\-\-insecure\-skip\-tls\-verify\-backend\fP=false
+	Skip verifying the identity of the kubelet that logs are requested from.  In theory, an attacker could provide invalid log content back. You might want to use this if your kubelet serving certificates have expired.
+
+.PP
+\fB\-\-limit\-bytes\fP=0
+	Maximum bytes of logs to return. Defaults to no limit.
+
+.PP
+\fB\-\-max\-log\-requests\fP=5
+	Specify maximum number of concurrent logs to follow when using by a selector. Defaults to 5.
+
+.PP
+\fB\-\-pod\-running\-timeout\fP=20s
+	The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
+
+.PP
+\fB\-\-prefix\fP=false
+	Prefix each log line with the log source (pod name and container name)
+
+.PP
+\fB\-p\fP, \fB\-\-previous\fP=false
+	If true, print the logs for the previous instance of the container in a pod if it exists.
+
+.PP
+\fB\-l\fP, \fB\-\-selector\fP=""
+	Selector (label query) to filter on.
+
+.PP
+\fB\-\-since\fP=0s
+	Only return logs newer than a relative duration like 5s, 2m, or 3h. Defaults to all logs. Only one of since\-time / since may be used.
+
+.PP
+\fB\-\-since\-time\fP=""
+	Only return logs after a specific date (RFC3339). Defaults to all logs. Only one of since\-time / since may be used.
+
+.PP
+\fB\-\-tail\fP=\-1
+	Lines of recent log file to display. Defaults to \-1 with no selector, showing all log lines otherwise 10, if a selector is provided.
+
+.PP
+\fB\-\-timestamps\fP=false
+	Include timestamps on each line in the log output
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.PP
+\fB\-\-as\fP=""
+	Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
+
+.PP
+\fB\-\-as\-group\fP=[]
+	Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+
+.PP
+\fB\-\-as\-uid\fP=""
+	UID to impersonate for the operation.
+
+.PP
+\fB\-\-azure\-container\-registry\-config\fP=""
+	Path to the file containing Azure container registry configuration information.
+
+.PP
+\fB\-\-cache\-dir\fP="/tmp/kubernetes\-cli\-20211216\-7728\-4tsrr/.brew\_home/.kube/cache"
+	Default cache directory
+
+.PP
+\fB\-\-certificate\-authority\fP=""
+	Path to a cert file for the certificate authority
+
+.PP
+\fB\-\-client\-certificate\fP=""
+	Path to a client certificate file for TLS
+
+.PP
+\fB\-\-client\-key\fP=""
+	Path to a client key file for TLS
+
+.PP
+\fB\-\-cluster\fP=""
+	The name of the kubeconfig cluster to use
+
+.PP
+\fB\-\-context\fP=""
+	The name of the kubeconfig context to use
+
+.PP
+\fB\-\-insecure\-skip\-tls\-verify\fP=false
+	If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+
+.PP
+\fB\-\-kubeconfig\fP=""
+	Path to the kubeconfig file to use for CLI requests.
+
+.PP
+\fB\-\-match\-server\-version\fP=false
+	Require server version to match client version
+
+.PP
+\fB\-n\fP, \fB\-\-namespace\fP=""
+	If present, the namespace scope for this CLI request
+
+.PP
+\fB\-\-password\fP=""
+	Password for basic authentication to the API server
+
+.PP
+\fB\-\-profile\fP="none"
+	Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+
+.PP
+\fB\-\-profile\-output\fP="profile.pprof"
+	Name of the file to write the profile to
+
+.PP
+\fB\-\-request\-timeout\fP="0"
+	The length of time to wait before giving up on a single server request. Non\-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
+
+.PP
+\fB\-s\fP, \fB\-\-server\fP=""
+	The address and port of the Kubernetes API server
+
+.PP
+\fB\-\-tls\-server\-name\fP=""
+	Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
+
+.PP
+\fB\-\-token\fP=""
+	Bearer token for authentication to the API server
+
+.PP
+\fB\-\-user\fP=""
+	The name of the kubeconfig user to use
+
+.PP
+\fB\-\-username\fP=""
+	Username for basic authentication to the API server
+
+.PP
+\fB\-\-version\fP=false
+	Print version information and quit
+
+.PP
+\fB\-\-warnings\-as\-errors\fP=false
+	Treat warnings received from the server as errors and exit with a non\-zero exit code
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+  # Return snapshot logs from pod nginx with only one container
+  kubectl logs nginx
+  
+  # Return snapshot logs from pod nginx with multi containers
+  kubectl logs nginx \-\-all\-containers=true
+  
+  # Return snapshot logs from all containers in pods defined by label app=nginx
+  kubectl logs \-l app=nginx \-\-all\-containers=true
+  
+  # Return snapshot of previous terminated ruby container logs from pod web\-1
+  kubectl logs \-p \-c ruby web\-1
+  
+  # Begin streaming the logs of the ruby container in pod web\-1
+  kubectl logs \-f \-c ruby web\-1
+  
+  # Begin streaming the logs from all containers in pods defined by label app=nginx
+  kubectl logs \-f \-l app=nginx \-\-all\-containers=true
+  
+  # Display only the most recent 20 lines of output in pod nginx
+  kubectl logs \-\-tail=20 nginx
+  
+  # Show all logs from pod nginx written in the last hour
+  kubectl logs \-\-since=1h nginx
+  
+  # Show logs from a kubelet with an expired serving certificate
+  kubectl logs \-\-insecure\-skip\-tls\-verify\-backend nginx
+  
+  # Return snapshot logs from first container of a job named hello
+  kubectl logs job/hello
+  
+  # Return snapshot logs from container nginx\-1 of a deployment named nginx
+  kubectl logs deployment/nginx \-c nginx\-1
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fBkubectl(1)\fP,
+
+
+.SH HISTORY
+.PP
+January 2015, Originally compiled by Eric Paris (eparis at redhat dot com) based on the kubernetes source material, but hopefully they have been automatically generated since!
