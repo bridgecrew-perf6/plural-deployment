@@ -1,0 +1,245 @@
+.nh
+.TH KUBERNETES(1) kubernetes User Manuals
+Eric Paris
+Jan 2015
+
+.SH NAME
+.PP
+kubectl delete \- Delete resources by file names, stdin, resources and names, or by resources and label selector
+
+
+.SH SYNOPSIS
+.PP
+\fBkubectl delete\fP [OPTIONS]
+
+
+.SH DESCRIPTION
+.PP
+Delete resources by file names, stdin, resources and names, or by resources and label selector.
+
+.PP
+JSON and YAML formats are accepted. Only one type of argument may be specified: file names, resources and names, or resources and label selector.
+
+.PP
+Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the \-\-grace\-period flag, or pass \-\-now to set a grace\-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must specify the \-\-force flag. Note: only a subset of resources support graceful deletion. In absence of the support, the \-\-grace\-period flag is ignored.
+
+.PP
+IMPORTANT: Force deleting pods does not wait for confirmation that the pod's processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods, the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.
+
+.PP
+Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.
+
+
+.SH OPTIONS
+.PP
+\fB\-\-all\fP=false
+	Delete all resources, in the namespace of the specified resource types.
+
+.PP
+\fB\-A\fP, \fB\-\-all\-namespaces\fP=false
+	If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with \-\-namespace.
+
+.PP
+\fB\-\-cascade\fP="background"
+	Must be "background", "orphan", or "foreground". Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
+
+.PP
+\fB\-\-dry\-run\fP="none"
+	Must be "none", "server", or "client". If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server\-side request without persisting the resource.
+
+.PP
+\fB\-\-field\-selector\fP=""
+	Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. \-\-field\-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.
+
+.PP
+\fB\-f\fP, \fB\-\-filename\fP=[]
+	containing the resource to delete.
+
+.PP
+\fB\-\-force\fP=false
+	If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
+
+.PP
+\fB\-\-grace\-period\fP=\-1
+	Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when \-\-force is true (force deletion).
+
+.PP
+\fB\-\-ignore\-not\-found\fP=false
+	Treat "resource not found" as a successful delete. Defaults to "true" when \-\-all is specified.
+
+.PP
+\fB\-k\fP, \fB\-\-kustomize\fP=""
+	Process a kustomization directory. This flag can't be used together with \-f or \-R.
+
+.PP
+\fB\-\-now\fP=false
+	If true, resources are signaled for immediate shutdown (same as \-\-grace\-period=1).
+
+.PP
+\fB\-o\fP, \fB\-\-output\fP=""
+	Output mode. Use "\-o name" for shorter output (resource/name).
+
+.PP
+\fB\-\-raw\fP=""
+	Raw URI to DELETE to the server.  Uses the transport specified by the kubeconfig file.
+
+.PP
+\fB\-R\fP, \fB\-\-recursive\fP=false
+	Process the directory used in \-f, \-\-filename recursively. Useful when you want to manage related manifests organized within the same directory.
+
+.PP
+\fB\-l\fP, \fB\-\-selector\fP=""
+	Selector (label query) to filter on.
+
+.PP
+\fB\-\-timeout\fP=0s
+	The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
+
+.PP
+\fB\-\-wait\fP=true
+	If true, wait for resources to be gone before returning. This waits for finalizers.
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.PP
+\fB\-\-as\fP=""
+	Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
+
+.PP
+\fB\-\-as\-group\fP=[]
+	Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+
+.PP
+\fB\-\-as\-uid\fP=""
+	UID to impersonate for the operation.
+
+.PP
+\fB\-\-azure\-container\-registry\-config\fP=""
+	Path to the file containing Azure container registry configuration information.
+
+.PP
+\fB\-\-cache\-dir\fP="/tmp/kubernetes\-cli\-20211216\-7728\-4tsrr/.brew\_home/.kube/cache"
+	Default cache directory
+
+.PP
+\fB\-\-certificate\-authority\fP=""
+	Path to a cert file for the certificate authority
+
+.PP
+\fB\-\-client\-certificate\fP=""
+	Path to a client certificate file for TLS
+
+.PP
+\fB\-\-client\-key\fP=""
+	Path to a client key file for TLS
+
+.PP
+\fB\-\-cluster\fP=""
+	The name of the kubeconfig cluster to use
+
+.PP
+\fB\-\-context\fP=""
+	The name of the kubeconfig context to use
+
+.PP
+\fB\-\-insecure\-skip\-tls\-verify\fP=false
+	If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+
+.PP
+\fB\-\-kubeconfig\fP=""
+	Path to the kubeconfig file to use for CLI requests.
+
+.PP
+\fB\-\-match\-server\-version\fP=false
+	Require server version to match client version
+
+.PP
+\fB\-n\fP, \fB\-\-namespace\fP=""
+	If present, the namespace scope for this CLI request
+
+.PP
+\fB\-\-password\fP=""
+	Password for basic authentication to the API server
+
+.PP
+\fB\-\-profile\fP="none"
+	Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+
+.PP
+\fB\-\-profile\-output\fP="profile.pprof"
+	Name of the file to write the profile to
+
+.PP
+\fB\-\-request\-timeout\fP="0"
+	The length of time to wait before giving up on a single server request. Non\-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
+
+.PP
+\fB\-s\fP, \fB\-\-server\fP=""
+	The address and port of the Kubernetes API server
+
+.PP
+\fB\-\-tls\-server\-name\fP=""
+	Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
+
+.PP
+\fB\-\-token\fP=""
+	Bearer token for authentication to the API server
+
+.PP
+\fB\-\-user\fP=""
+	The name of the kubeconfig user to use
+
+.PP
+\fB\-\-username\fP=""
+	Username for basic authentication to the API server
+
+.PP
+\fB\-\-version\fP=false
+	Print version information and quit
+
+.PP
+\fB\-\-warnings\-as\-errors\fP=false
+	Treat warnings received from the server as errors and exit with a non\-zero exit code
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+  # Delete a pod using the type and name specified in pod.json
+  kubectl delete \-f ./pod.json
+  
+  # Delete resources from a directory containing kustomization.yaml \- e.g. dir/kustomization.yaml
+  kubectl delete \-k dir
+  
+  # Delete a pod based on the type and name in the JSON passed into stdin
+  cat pod.json | kubectl delete \-f \-
+  
+  # Delete pods and services with same names "baz" and "foo"
+  kubectl delete pod,service baz foo
+  
+  # Delete pods and services with label name=myLabel
+  kubectl delete pods,services \-l name=myLabel
+  
+  # Delete a pod with minimal delay
+  kubectl delete pod foo \-\-now
+  
+  # Force delete a pod on a dead node
+  kubectl delete pod foo \-\-force
+  
+  # Delete all pods
+  kubectl delete pods \-\-all
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fBkubectl(1)\fP,
+
+
+.SH HISTORY
+.PP
+January 2015, Originally compiled by Eric Paris (eparis at redhat dot com) based on the kubernetes source material, but hopefully they have been automatically generated since!

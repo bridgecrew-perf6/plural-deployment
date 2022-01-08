@@ -1,0 +1,187 @@
+.nh
+.TH KUBERNETES(1) kubernetes User Manuals
+Eric Paris
+Jan 2015
+
+.SH NAME
+.PP
+kubectl top pod \- Display resource (CPU/memory) usage of pods
+
+
+.SH SYNOPSIS
+.PP
+\fBkubectl top pod\fP [OPTIONS]
+
+
+.SH DESCRIPTION
+.PP
+Display resource (CPU/memory) usage of pods.
+
+.PP
+The 'top pod' command allows you to see the resource consumption of pods.
+
+.PP
+Due to the metrics pipeline delay, they may be unavailable for a few minutes since pod creation.
+
+
+.SH OPTIONS
+.PP
+\fB\-A\fP, \fB\-\-all\-namespaces\fP=false
+	If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with \-\-namespace.
+
+.PP
+\fB\-\-containers\fP=false
+	If present, print usage of containers within a pod.
+
+.PP
+\fB\-\-field\-selector\fP=""
+	Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. \-\-field\-selector key1=value1,key2=value2). The server only supports a limited number of field queries per type.
+
+.PP
+\fB\-\-no\-headers\fP=false
+	If present, print output without headers.
+
+.PP
+\fB\-l\fP, \fB\-\-selector\fP=""
+	Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. \-l key1=value1,key2=value2)
+
+.PP
+\fB\-\-sort\-by\fP=""
+	If non\-empty, sort pods list using specified field. The field can be either 'cpu' or 'memory'.
+
+.PP
+\fB\-\-use\-protocol\-buffers\fP=true
+	Enables using protocol\-buffers to access Metrics API.
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.PP
+\fB\-\-as\fP=""
+	Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
+
+.PP
+\fB\-\-as\-group\fP=[]
+	Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+
+.PP
+\fB\-\-as\-uid\fP=""
+	UID to impersonate for the operation.
+
+.PP
+\fB\-\-azure\-container\-registry\-config\fP=""
+	Path to the file containing Azure container registry configuration information.
+
+.PP
+\fB\-\-cache\-dir\fP="/tmp/kubernetes\-cli\-20211216\-7728\-4tsrr/.brew\_home/.kube/cache"
+	Default cache directory
+
+.PP
+\fB\-\-certificate\-authority\fP=""
+	Path to a cert file for the certificate authority
+
+.PP
+\fB\-\-client\-certificate\fP=""
+	Path to a client certificate file for TLS
+
+.PP
+\fB\-\-client\-key\fP=""
+	Path to a client key file for TLS
+
+.PP
+\fB\-\-cluster\fP=""
+	The name of the kubeconfig cluster to use
+
+.PP
+\fB\-\-context\fP=""
+	The name of the kubeconfig context to use
+
+.PP
+\fB\-\-insecure\-skip\-tls\-verify\fP=false
+	If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+
+.PP
+\fB\-\-kubeconfig\fP=""
+	Path to the kubeconfig file to use for CLI requests.
+
+.PP
+\fB\-\-match\-server\-version\fP=false
+	Require server version to match client version
+
+.PP
+\fB\-n\fP, \fB\-\-namespace\fP=""
+	If present, the namespace scope for this CLI request
+
+.PP
+\fB\-\-password\fP=""
+	Password for basic authentication to the API server
+
+.PP
+\fB\-\-profile\fP="none"
+	Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+
+.PP
+\fB\-\-profile\-output\fP="profile.pprof"
+	Name of the file to write the profile to
+
+.PP
+\fB\-\-request\-timeout\fP="0"
+	The length of time to wait before giving up on a single server request. Non\-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
+
+.PP
+\fB\-s\fP, \fB\-\-server\fP=""
+	The address and port of the Kubernetes API server
+
+.PP
+\fB\-\-tls\-server\-name\fP=""
+	Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
+
+.PP
+\fB\-\-token\fP=""
+	Bearer token for authentication to the API server
+
+.PP
+\fB\-\-user\fP=""
+	The name of the kubeconfig user to use
+
+.PP
+\fB\-\-username\fP=""
+	Username for basic authentication to the API server
+
+.PP
+\fB\-\-version\fP=false
+	Print version information and quit
+
+.PP
+\fB\-\-warnings\-as\-errors\fP=false
+	Treat warnings received from the server as errors and exit with a non\-zero exit code
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+  # Show metrics for all pods in the default namespace
+  kubectl top pod
+  
+  # Show metrics for all pods in the given namespace
+  kubectl top pod \-\-namespace=NAMESPACE
+  
+  # Show metrics for a given pod and its containers
+  kubectl top pod POD\_NAME \-\-containers
+  
+  # Show metrics for the pods defined by label name=myLabel
+  kubectl top pod \-l name=myLabel
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fBkubectl\-top(1)\fP,
+
+
+.SH HISTORY
+.PP
+January 2015, Originally compiled by Eric Paris (eparis at redhat dot com) based on the kubernetes source material, but hopefully they have been automatically generated since!

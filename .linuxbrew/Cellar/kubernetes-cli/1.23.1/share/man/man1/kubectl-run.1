@@ -1,0 +1,324 @@
+.nh
+.TH KUBERNETES(1) kubernetes User Manuals
+Eric Paris
+Jan 2015
+
+.SH NAME
+.PP
+kubectl run \- Run a particular image on the cluster
+
+
+.SH SYNOPSIS
+.PP
+\fBkubectl run\fP [OPTIONS]
+
+
+.SH DESCRIPTION
+.PP
+Create and run a particular image in a pod.
+
+
+.SH OPTIONS
+.PP
+\fB\-\-allow\-missing\-template\-keys\fP=true
+	If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
+
+.PP
+\fB\-\-annotations\fP=[]
+	Annotations to apply to the pod.
+
+.PP
+\fB\-\-attach\fP=false
+	If true, wait for the Pod to start running, and then attach to the Pod as if 'kubectl attach ...' were called.  Default false, unless '\-i/\-\-stdin' is set, in which case the default is true. With '\-\-restart=Never' the exit code of the container process is returned.
+
+.PP
+\fB\-\-cascade\fP="background"
+	Must be "background", "orphan", or "foreground". Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
+
+.PP
+\fB\-\-command\fP=false
+	If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.
+
+.PP
+\fB\-\-dry\-run\fP="none"
+	Must be "none", "server", or "client". If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server\-side request without persisting the resource.
+
+.PP
+\fB\-\-env\fP=[]
+	Environment variables to set in the container.
+
+.PP
+\fB\-\-expose\fP=false
+	If true, create a ClusterIP service associated with the pod.  Requires \fB\fC\-\-port\fR\&.
+
+.PP
+\fB\-\-field\-manager\fP="kubectl\-run"
+	Name of the manager used to track field ownership.
+
+.PP
+\fB\-f\fP, \fB\-\-filename\fP=[]
+	to use to replace the resource.
+
+.PP
+\fB\-\-force\fP=false
+	If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation.
+
+.PP
+\fB\-\-grace\-period\fP=\-1
+	Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when \-\-force is true (force deletion).
+
+.PP
+\fB\-\-hostport\fP=\-1
+	The host port mapping for the container port. To demonstrate a single\-machine container.
+
+.PP
+\fB\-\-image\fP=""
+	The image for the container to run.
+
+.PP
+\fB\-\-image\-pull\-policy\fP=""
+	The image pull policy for the container.  If left empty, this value will not be specified by the client and defaulted by the server.
+
+.PP
+\fB\-k\fP, \fB\-\-kustomize\fP=""
+	Process a kustomization directory. This flag can't be used together with \-f or \-R.
+
+.PP
+\fB\-l\fP, \fB\-\-labels\fP=""
+	Comma separated labels to apply to the pod. Will override previous values.
+
+.PP
+\fB\-\-leave\-stdin\-open\fP=false
+	If the pod is started in interactive mode or with stdin, leave stdin open after the first attach completes. By default, stdin will be closed after the first attach completes.
+
+.PP
+\fB\-\-limits\fP=""
+	The resource requirement limits for this container.  For example, 'cpu=200m,memory=512Mi'.  Note that server side components may assign limits depending on the server configuration, such as limit ranges.
+
+.PP
+\fB\-o\fP, \fB\-\-output\fP=""
+	Output format. One of: json|yaml|name|go\-template|go\-template\-file|template|templatefile|jsonpath|jsonpath\-as\-json|jsonpath\-file.
+
+.PP
+\fB\-\-override\-type\fP="merge"
+	The method used to override the generated object: json, merge, or strategic.
+
+.PP
+\fB\-\-overrides\fP=""
+	An inline JSON override for the generated object. If this is non\-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.
+
+.PP
+\fB\-\-pod\-running\-timeout\fP=1m0s
+	The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
+
+.PP
+\fB\-\-port\fP=""
+	The port that this container exposes.
+
+.PP
+\fB\-\-privileged\fP=false
+	If true, run the container in privileged mode.
+
+.PP
+\fB\-q\fP, \fB\-\-quiet\fP=false
+	If true, suppress prompt messages.
+
+.PP
+\fB\-\-record\fP=false
+	Record current kubectl command in the resource annotation. If set to false, do not record the command. If set to true, record the command. If not set, default to updating the existing annotation value only if one already exists.
+
+.PP
+\fB\-R\fP, \fB\-\-recursive\fP=false
+	Process the directory used in \-f, \-\-filename recursively. Useful when you want to manage related manifests organized within the same directory.
+
+.PP
+\fB\-\-requests\fP=""
+	The resource requirement requests for this container.  For example, 'cpu=100m,memory=256Mi'.  Note that server side components may assign requests depending on the server configuration, such as limit ranges.
+
+.PP
+\fB\-\-restart\fP="Always"
+	The restart policy for this Pod.  Legal values [Always, OnFailure, Never].
+
+.PP
+\fB\-\-rm\fP=false
+	If true, delete the pod after it exits.  Only valid when attaching to the container, e.g. with '\-\-attach' or with '\-i/\-\-stdin'.
+
+.PP
+\fB\-\-save\-config\fP=false
+	If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
+
+.PP
+\fB\-\-serviceaccount\fP=""
+	Service account to set in the pod spec.
+
+.PP
+\fB\-\-show\-managed\-fields\fP=false
+	If true, keep the managedFields when printing objects in JSON or YAML format.
+
+.PP
+\fB\-i\fP, \fB\-\-stdin\fP=false
+	Keep stdin open on the container in the pod, even if nothing is attached.
+
+.PP
+\fB\-\-template\fP=""
+	Template string or path to template file to use when \-o=go\-template, \-o=go\-template\-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg\-overview].
+
+.PP
+\fB\-\-timeout\fP=0s
+	The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
+
+.PP
+\fB\-t\fP, \fB\-\-tty\fP=false
+	Allocate a TTY for the container in the pod.
+
+.PP
+\fB\-\-wait\fP=false
+	If true, wait for resources to be gone before returning. This waits for finalizers.
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.PP
+\fB\-\-as\fP=""
+	Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
+
+.PP
+\fB\-\-as\-group\fP=[]
+	Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+
+.PP
+\fB\-\-as\-uid\fP=""
+	UID to impersonate for the operation.
+
+.PP
+\fB\-\-azure\-container\-registry\-config\fP=""
+	Path to the file containing Azure container registry configuration information.
+
+.PP
+\fB\-\-cache\-dir\fP="/tmp/kubernetes\-cli\-20211216\-7728\-4tsrr/.brew\_home/.kube/cache"
+	Default cache directory
+
+.PP
+\fB\-\-certificate\-authority\fP=""
+	Path to a cert file for the certificate authority
+
+.PP
+\fB\-\-client\-certificate\fP=""
+	Path to a client certificate file for TLS
+
+.PP
+\fB\-\-client\-key\fP=""
+	Path to a client key file for TLS
+
+.PP
+\fB\-\-cluster\fP=""
+	The name of the kubeconfig cluster to use
+
+.PP
+\fB\-\-context\fP=""
+	The name of the kubeconfig context to use
+
+.PP
+\fB\-\-insecure\-skip\-tls\-verify\fP=false
+	If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+
+.PP
+\fB\-\-kubeconfig\fP=""
+	Path to the kubeconfig file to use for CLI requests.
+
+.PP
+\fB\-\-match\-server\-version\fP=false
+	Require server version to match client version
+
+.PP
+\fB\-n\fP, \fB\-\-namespace\fP=""
+	If present, the namespace scope for this CLI request
+
+.PP
+\fB\-\-password\fP=""
+	Password for basic authentication to the API server
+
+.PP
+\fB\-\-profile\fP="none"
+	Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
+
+.PP
+\fB\-\-profile\-output\fP="profile.pprof"
+	Name of the file to write the profile to
+
+.PP
+\fB\-\-request\-timeout\fP="0"
+	The length of time to wait before giving up on a single server request. Non\-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
+
+.PP
+\fB\-s\fP, \fB\-\-server\fP=""
+	The address and port of the Kubernetes API server
+
+.PP
+\fB\-\-tls\-server\-name\fP=""
+	Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
+
+.PP
+\fB\-\-token\fP=""
+	Bearer token for authentication to the API server
+
+.PP
+\fB\-\-user\fP=""
+	The name of the kubeconfig user to use
+
+.PP
+\fB\-\-username\fP=""
+	Username for basic authentication to the API server
+
+.PP
+\fB\-\-version\fP=false
+	Print version information and quit
+
+.PP
+\fB\-\-warnings\-as\-errors\fP=false
+	Treat warnings received from the server as errors and exit with a non\-zero exit code
+
+
+.SH EXAMPLE
+.PP
+.RS
+
+.nf
+  # Start a nginx pod
+  kubectl run nginx \-\-image=nginx
+  
+  # Start a hazelcast pod and let the container expose port 5701
+  kubectl run hazelcast \-\-image=hazelcast/hazelcast \-\-port=5701
+  
+  # Start a hazelcast pod and set environment variables "DNS\_DOMAIN=cluster" and "POD\_NAMESPACE=default" in the container
+  kubectl run hazelcast \-\-image=hazelcast/hazelcast \-\-env="DNS\_DOMAIN=cluster" \-\-env="POD\_NAMESPACE=default"
+  
+  # Start a hazelcast pod and set labels "app=hazelcast" and "env=prod" in the container
+  kubectl run hazelcast \-\-image=hazelcast/hazelcast \-\-labels="app=hazelcast,env=prod"
+  
+  # Dry run; print the corresponding API objects without creating them
+  kubectl run nginx \-\-image=nginx \-\-dry\-run=client
+  
+  # Start a nginx pod, but overload the spec with a partial set of values parsed from JSON
+  kubectl run nginx \-\-image=nginx \-\-overrides='{ "apiVersion": "v1", "spec": { ... } }'
+  
+  # Start a busybox pod and keep it in the foreground, don't restart it if it exits
+  kubectl run \-i \-t busybox \-\-image=busybox \-\-restart=Never
+  
+  # Start the nginx pod using the default command, but use custom arguments (arg1 .. argN) for that command
+  kubectl run nginx \-\-image=nginx \-\- <arg1> <arg2> ... <argN>
+  
+  # Start the nginx pod using a different command and custom arguments
+  kubectl run nginx \-\-image=nginx \-\-command \-\- <cmd> <arg1> ... <argN>
+
+.fi
+.RE
+
+
+.SH SEE ALSO
+.PP
+\fBkubectl(1)\fP,
+
+
+.SH HISTORY
+.PP
+January 2015, Originally compiled by Eric Paris (eparis at redhat dot com) based on the kubernetes source material, but hopefully they have been automatically generated since!

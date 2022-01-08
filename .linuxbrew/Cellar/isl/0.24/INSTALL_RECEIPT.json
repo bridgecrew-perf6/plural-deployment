@@ -1,0 +1,48 @@
+{
+  "homebrew_version": "3.2.0-126-g83aa3ff",
+  "used_options": [
+
+  ],
+  "unused_options": [
+
+  ],
+  "built_as_bottle": true,
+  "poured_from_bottle": true,
+  "installed_as_dependency": true,
+  "installed_on_request": false,
+  "changed_files": [
+    "lib/pkgconfig/isl.pc"
+  ],
+  "time": 1641605342,
+  "source_modified_time": 1619886086,
+  "compiler": "gcc-5",
+  "aliases": [
+    "isl@0.23"
+  ],
+  "runtime_dependencies": [
+    {
+      "full_name": "gmp",
+      "version": "6.2.1",
+      "declared_directly": true
+    }
+  ],
+  "source": {
+    "spec": "stable",
+    "versions": {
+      "stable": "0.24",
+      "head": null,
+      "version_scheme": 0
+    },
+    "path": "/home/ec2-user/plural-deployment/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/isl.rb",
+    "tap_git_head": "436d9de2158d981c31a4910670ceb18a73c0c355",
+    "tap": "homebrew/core"
+  },
+  "arch": "x86_64",
+  "built_on": {
+    "os": "Linux",
+    "os_version": "Ubuntu 16.04.7",
+    "cpu_family": "broadwell",
+    "glibc_version": "2.23",
+    "oldest_cpu_family": "core2"
+  }
+}

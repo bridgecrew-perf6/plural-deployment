@@ -1,0 +1,99 @@
+.nh
+.TH KUBERNETES(1) kubernetes User Manuals
+Eric Paris
+Jan 2015
+
+.SH NAME
+.PP
+kubeadm upgrade apply \- Upgrade your Kubernetes cluster to the specified version
+
+
+.SH SYNOPSIS
+.PP
+\fBkubeadm upgrade apply\fP [OPTIONS]
+
+
+.SH DESCRIPTION
+.PP
+Upgrade your Kubernetes cluster to the specified version
+
+
+.SH OPTIONS
+.PP
+\fB\-\-allow\-experimental\-upgrades\fP=false
+	Show unstable versions of Kubernetes as an upgrade alternative and allow upgrading to an alpha/beta/release candidate versions of Kubernetes.
+
+.PP
+\fB\-\-allow\-release\-candidate\-upgrades\fP=false
+	Show release candidate versions of Kubernetes as an upgrade alternative and allow upgrading to a release candidate versions of Kubernetes.
+
+.PP
+\fB\-\-certificate\-renewal\fP=true
+	Perform the renewal of certificates used by component changed during upgrades.
+
+.PP
+\fB\-\-config\fP=""
+	Path to a kubeadm configuration file.
+
+.PP
+\fB\-\-dry\-run\fP=false
+	Do not change any state, just output what actions would be performed.
+
+.PP
+\fB\-\-etcd\-upgrade\fP=true
+	Perform the upgrade of etcd.
+
+.PP
+\fB\-\-feature\-gates\fP=""
+	A set of key=value pairs that describe feature gates for various features. Options are:
+PublicKeysECDSA=true|false (ALPHA \- default=false)
+RootlessControlPlane=true|false (ALPHA \- default=false)
+UnversionedKubeletConfigMap=true|false (ALPHA \- default=false)
+
+.PP
+\fB\-f\fP, \fB\-\-force\fP=false
+	Force upgrading although some requirements might not be met. This also implies non\-interactive mode.
+
+.PP
+\fB\-\-ignore\-preflight\-errors\fP=[]
+	A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+
+.PP
+\fB\-\-kubeconfig\fP="/etc/kubernetes/admin.conf"
+	The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+
+.PP
+\fB\-\-patches\fP=""
+	Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube\-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube\-apiserver", "kube\-controller\-manager", "kube\-scheduler", "etcd". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha\-numerically.
+
+.PP
+\fB\-\-print\-config\fP=false
+	Specifies whether the configuration file that will be used in the upgrade should be printed or not.
+
+.PP
+\fB\-y\fP, \fB\-\-yes\fP=false
+	Perform the upgrade and do not prompt for confirmation (non\-interactive mode).
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+.PP
+\fB\-\-azure\-container\-registry\-config\fP=""
+	Path to the file containing Azure container registry configuration information.
+
+.PP
+\fB\-\-rootfs\fP=""
+	[EXPERIMENTAL] The path to the 'real' host root filesystem.
+
+.PP
+\fB\-\-version\fP=false
+	Print version information and quit
+
+
+.SH SEE ALSO
+.PP
+\fBkubeadm\-upgrade(1)\fP,
+
+
+.SH HISTORY
+.PP
+January 2015, Originally compiled by Eric Paris (eparis at redhat dot com) based on the kubernetes source material, but hopefully they have been automatically generated since!

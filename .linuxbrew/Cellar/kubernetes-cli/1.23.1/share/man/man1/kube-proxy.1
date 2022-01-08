@@ -1,0 +1,466 @@
+.nh
+.TH KUBERNETES(1) kubernetes User Manuals
+Eric Paris
+Jan 2015
+
+.SH NAME
+.PP
+kube\-proxy \-
+
+
+.SH SYNOPSIS
+.PP
+\fBkube\-proxy\fP [OPTIONS]
+
+
+.SH DESCRIPTION
+.PP
+The Kubernetes network proxy runs on each node. This
+reflects services as defined in the Kubernetes API on each node and can do simple
+TCP, UDP, and SCTP stream forwarding or round robin TCP, UDP, and SCTP forwarding across a set of backends.
+Service cluster IPs and ports are currently found through Docker\-links\-compatible
+environment variables specifying ports opened by the service proxy. There is an optional
+addon that provides cluster DNS for these cluster IPs. The user must create a service
+with the apiserver API to configure the proxy.
+
+
+.SH OPTIONS
+.PP
+\fB\-\-allow\_dynamic\_housekeeping\fP=true
+	Whether to allow the housekeeping interval to be dynamic
+
+.PP
+\fB\-\-application\_metrics\_count\_limit\fP=100
+	Max number of application metrics to store (per container)
+
+.PP
+\fB\-\-azure\-container\-registry\-config\fP=""
+	Path to the file containing Azure container registry configuration information.
+
+.PP
+\fB\-\-bind\-address\fP=0.0.0.0
+	The IP address for the proxy server to serve on (set to '0.0.0.0' for all IPv4 interfaces and '::' for all IPv6 interfaces)
+
+.PP
+\fB\-\-bind\-address\-hard\-fail\fP=false
+	If true kube\-proxy will treat failure to bind to a port as fatal and exit
+
+.PP
+\fB\-\-boot\_id\_file\fP="/proc/sys/kernel/random/boot\_id"
+	Comma\-separated list of files to check for boot\-id. Use the first one that exists.
+
+.PP
+\fB\-\-cleanup\fP=false
+	If true cleanup iptables and ipvs rules and exit.
+
+.PP
+\fB\-\-cloud\-provider\-gce\-l7lb\-src\-cidrs\fP=130.211.0.0/22,35.191.0.0/16
+	CIDRs opened in GCE firewall for L7 LB traffic proxy \& health checks
+
+.PP
+\fB\-\-cloud\-provider\-gce\-lb\-src\-cidrs\fP=130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16
+	CIDRs opened in GCE firewall for L4 LB traffic proxy \& health checks
+
+.PP
+\fB\-\-cluster\-cidr\fP=""
+	The CIDR range of pods in the cluster. When configured, traffic sent to a Service cluster IP from outside this range will be masqueraded and traffic sent from pods to an external LoadBalancer IP will be directed to the respective cluster IP instead
+
+.PP
+\fB\-\-config\fP=""
+	The path to the configuration file.
+
+.PP
+\fB\-\-config\-sync\-period\fP=15m0s
+	How often configuration from the apiserver is refreshed.  Must be greater than 0.
+
+.PP
+\fB\-\-conntrack\-max\-per\-core\fP=32768
+	Maximum number of NAT connections to track per CPU core (0 to leave the limit as\-is and ignore conntrack\-min).
+
+.PP
+\fB\-\-conntrack\-min\fP=131072
+	Minimum number of conntrack entries to allocate, regardless of conntrack\-max\-per\-core (set conntrack\-max\-per\-core=0 to leave the limit as\-is).
+
+.PP
+\fB\-\-conntrack\-tcp\-timeout\-close\-wait\fP=1h0m0s
+	NAT timeout for TCP connections in the CLOSE\_WAIT state
+
+.PP
+\fB\-\-conntrack\-tcp\-timeout\-established\fP=24h0m0s
+	Idle timeout for established TCP connections (0 to leave as\-is)
+
+.PP
+\fB\-\-container\_hints\fP="/etc/cadvisor/container\_hints.json"
+	location of the container hints file
+
+.PP
+\fB\-\-containerd\fP="/run/containerd/containerd.sock"
+	containerd endpoint
+
+.PP
+\fB\-\-containerd\-namespace\fP="k8s.io"
+	containerd namespace
+
+.PP
+\fB\-\-containerd\_env\_metadata\_whitelist\fP=""
+	DEPRECATED: this flag will be removed, please use \fB\fCenv\_metadata\_whitelist\fR\&. A comma\-\&separated list of environment variable keys matched with specified prefix that needs to be collected for containerd containers
+
+.PP
+\fB\-\-default\-not\-ready\-toleration\-seconds\fP=300
+	Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
+
+.PP
+\fB\-\-default\-unreachable\-toleration\-seconds\fP=300
+	Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
+
+.PP
+\fB\-\-detect\-local\-mode\fP=
+	Mode to use to detect local traffic
+
+.PP
+\fB\-\-disable\_root\_cgroup\_stats\fP=false
+	Disable collecting root Cgroup stats
+
+.PP
+\fB\-\-docker\fP="unix:///var/run/docker.sock"
+	docker endpoint
+
+.PP
+\fB\-\-docker\-tls\fP=false
+	use TLS to connect to docker
+
+.PP
+\fB\-\-docker\-tls\-ca\fP="ca.pem"
+	path to trusted CA
+
+.PP
+\fB\-\-docker\-tls\-cert\fP="cert.pem"
+	path to client certificate
+
+.PP
+\fB\-\-docker\-tls\-key\fP="key.pem"
+	path to private key
+
+.PP
+\fB\-\-docker\_env\_metadata\_whitelist\fP=""
+	DEPRECATED: this flag will be removed, please use \fB\fCenv\_metadata\_whitelist\fR\&. A comma\-\&separated list of environment variable keys matched with specified prefix that needs to be collected for docker containers
+
+.PP
+\fB\-\-docker\_only\fP=false
+	Only report docker containers in addition to root stats
+
+.PP
+\fB\-\-docker\_root\fP="/var/lib/docker"
+	DEPRECATED: docker root is read from docker info (this is a fallback, default: /var/lib/docker)
+
+.PP
+\fB\-\-enable\_load\_reader\fP=false
+	Whether to enable cpu load reader
+
+.PP
+\fB\-\-event\_storage\_age\_limit\fP="default=0"
+	Max length of time for which to store events (per type). Value is a comma separated list of key values, where the keys are event types (e.g.: creation, oom) or "default" and the value is a duration. Default is applied to all non\-specified event types
+
+.PP
+\fB\-\-event\_storage\_event\_limit\fP="default=0"
+	Max number of events to store (per type). Value is a comma separated list of key values, where the keys are event types (e.g.: creation, oom) or "default" and the value is an integer. Default is applied to all non\-specified event types
+
+.PP
+\fB\-\-feature\-gates\fP=
+	A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
+APIListChunking=true|false (BETA \- default=true)
+APIPriorityAndFairness=true|false (BETA \- default=true)
+APIResponseCompression=true|false (BETA \- default=true)
+APIServerIdentity=true|false (ALPHA \- default=false)
+APIServerTracing=true|false (ALPHA \- default=false)
+AllAlpha=true|false (ALPHA \- default=false)
+AllBeta=true|false (BETA \- default=false)
+AnyVolumeDataSource=true|false (ALPHA \- default=false)
+AppArmor=true|false (BETA \- default=true)
+CPUManager=true|false (BETA \- default=true)
+CPUManagerPolicyAlphaOptions=true|false (ALPHA \- default=false)
+CPUManagerPolicyBetaOptions=true|false (BETA \- default=true)
+CPUManagerPolicyOptions=true|false (BETA \- default=true)
+CSIInlineVolume=true|false (BETA \- default=true)
+CSIMigration=true|false (BETA \- default=true)
+CSIMigrationAWS=true|false (BETA \- default=true)
+CSIMigrationAzureDisk=true|false (BETA \- default=true)
+CSIMigrationAzureFile=true|false (BETA \- default=false)
+CSIMigrationGCE=true|false (BETA \- default=true)
+CSIMigrationOpenStack=true|false (BETA \- default=true)
+CSIMigrationPortworx=true|false (ALPHA \- default=false)
+CSIMigrationvSphere=true|false (BETA \- default=false)
+CSIStorageCapacity=true|false (BETA \- default=true)
+CSIVolumeHealth=true|false (ALPHA \- default=false)
+CSRDuration=true|false (BETA \- default=true)
+ControllerManagerLeaderMigration=true|false (BETA \- default=true)
+CustomCPUCFSQuotaPeriod=true|false (ALPHA \- default=false)
+CustomResourceValidationExpressions=true|false (ALPHA \- default=false)
+DaemonSetUpdateSurge=true|false (BETA \- default=true)
+DefaultPodTopologySpread=true|false (BETA \- default=true)
+DelegateFSGroupToCSIDriver=true|false (BETA \- default=true)
+DevicePlugins=true|false (BETA \- default=true)
+DisableAcceleratorUsageMetrics=true|false (BETA \- default=true)
+DisableCloudProviders=true|false (ALPHA \- default=false)
+DisableKubeletCloudCredentialProviders=true|false (ALPHA \- default=false)
+DownwardAPIHugePages=true|false (BETA \- default=true)
+EfficientWatchResumption=true|false (BETA \- default=true)
+EndpointSliceTerminatingCondition=true|false (BETA \- default=true)
+EphemeralContainers=true|false (BETA \- default=true)
+ExpandCSIVolumes=true|false (BETA \- default=true)
+ExpandInUsePersistentVolumes=true|false (BETA \- default=true)
+ExpandPersistentVolumes=true|false (BETA \- default=true)
+ExpandedDNSConfig=true|false (ALPHA \- default=false)
+ExperimentalHostUserNamespaceDefaulting=true|false (BETA \- default=false)
+GRPCContainerProbe=true|false (ALPHA \- default=false)
+GracefulNodeShutdown=true|false (BETA \- default=true)
+GracefulNodeShutdownBasedOnPodPriority=true|false (ALPHA \- default=false)
+HPAContainerMetrics=true|false (ALPHA \- default=false)
+HPAScaleToZero=true|false (ALPHA \- default=false)
+HonorPVReclaimPolicy=true|false (ALPHA \- default=false)
+IdentifyPodOS=true|false (ALPHA \- default=false)
+InTreePluginAWSUnregister=true|false (ALPHA \- default=false)
+InTreePluginAzureDiskUnregister=true|false (ALPHA \- default=false)
+InTreePluginAzureFileUnregister=true|false (ALPHA \- default=false)
+InTreePluginGCEUnregister=true|false (ALPHA \- default=false)
+InTreePluginOpenStackUnregister=true|false (ALPHA \- default=false)
+InTreePluginPortworxUnregister=true|false (ALPHA \- default=false)
+InTreePluginRBDUnregister=true|false (ALPHA \- default=false)
+InTreePluginvSphereUnregister=true|false (ALPHA \- default=false)
+IndexedJob=true|false (BETA \- default=true)
+JobMutableNodeSchedulingDirectives=true|false (BETA \- default=true)
+JobReadyPods=true|false (ALPHA \- default=false)
+JobTrackingWithFinalizers=true|false (BETA \- default=true)
+KubeletCredentialProviders=true|false (ALPHA \- default=false)
+KubeletInUserNamespace=true|false (ALPHA \- default=false)
+KubeletPodResources=true|false (BETA \- default=true)
+KubeletPodResourcesGetAllocatable=true|false (BETA \- default=true)
+LocalStorageCapacityIsolation=true|false (BETA \- default=true)
+LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA \- default=false)
+LogarithmicScaleDown=true|false (BETA \- default=true)
+MemoryManager=true|false (BETA \- default=true)
+MemoryQoS=true|false (ALPHA \- default=false)
+MixedProtocolLBService=true|false (ALPHA \- default=false)
+NetworkPolicyEndPort=true|false (BETA \- default=true)
+NodeSwap=true|false (ALPHA \- default=false)
+NonPreemptingPriority=true|false (BETA \- default=true)
+OpenAPIEnums=true|false (ALPHA \- default=false)
+OpenAPIV3=true|false (ALPHA \- default=false)
+PodAffinityNamespaceSelector=true|false (BETA \- default=true)
+PodAndContainerStatsFromCRI=true|false (ALPHA \- default=false)
+PodDeletionCost=true|false (BETA \- default=true)
+PodOverhead=true|false (BETA \- default=true)
+PodSecurity=true|false (BETA \- default=true)
+PreferNominatedNode=true|false (BETA \- default=true)
+ProbeTerminationGracePeriod=true|false (BETA \- default=false)
+ProcMountType=true|false (ALPHA \- default=false)
+ProxyTerminatingEndpoints=true|false (ALPHA \- default=false)
+QOSReserved=true|false (ALPHA \- default=false)
+ReadWriteOncePod=true|false (ALPHA \- default=false)
+RecoverVolumeExpansionFailure=true|false (ALPHA \- default=false)
+RemainingItemCount=true|false (BETA \- default=true)
+RemoveSelfLink=true|false (BETA \- default=true)
+RotateKubeletServerCertificate=true|false (BETA \- default=true)
+SeccompDefault=true|false (ALPHA \- default=false)
+ServerSideFieldValidation=true|false (ALPHA \- default=false)
+ServiceInternalTrafficPolicy=true|false (BETA \- default=true)
+ServiceLBNodePortControl=true|false (BETA \- default=true)
+ServiceLoadBalancerClass=true|false (BETA \- default=true)
+SizeMemoryBackedVolumes=true|false (BETA \- default=true)
+StatefulSetAutoDeletePVC=true|false (ALPHA \- default=false)
+StatefulSetMinReadySeconds=true|false (BETA \- default=true)
+StorageVersionAPI=true|false (ALPHA \- default=false)
+StorageVersionHash=true|false (BETA \- default=true)
+SuspendJob=true|false (BETA \- default=true)
+TopologyAwareHints=true|false (BETA \- default=false)
+TopologyManager=true|false (BETA \- default=true)
+VolumeCapacityPriority=true|false (ALPHA \- default=false)
+WinDSR=true|false (ALPHA \- default=false)
+WinOverlay=true|false (BETA \- default=true)
+WindowsHostProcessContainers=true|false (BETA \- default=true)
+csiMigrationRBD=true|false (ALPHA \- default=false)
+
+.PP
+\fB\-\-global\_housekeeping\_interval\fP=1m0s
+	Interval between global housekeepings
+
+.PP
+\fB\-\-healthz\-bind\-address\fP=0.0.0.0:10256
+	The IP address with port for the health check server to serve on (set to '0.0.0.0:10256' for all IPv4 interfaces and '[::]:10256' for all IPv6 interfaces). Set empty to disable.
+
+.PP
+\fB\-\-healthz\-port\fP=10256
+	The port to bind the health check server. Use 0 to disable.
+
+.PP
+\fB\-\-hostname\-override\fP=""
+	If non\-empty, will use this string as identification instead of the actual hostname.
+
+.PP
+\fB\-\-housekeeping\_interval\fP=10s
+	Interval between container housekeepings
+
+.PP
+\fB\-\-iptables\-masquerade\-bit\fP=14
+	If using the pure iptables proxy, the bit of the fwmark space to mark packets requiring SNAT with.  Must be within the range [0, 31].
+
+.PP
+\fB\-\-iptables\-min\-sync\-period\fP=1s
+	The minimum interval of how often the iptables rules can be refreshed as endpoints and services change (e.g. '5s', '1m', '2h22m').
+
+.PP
+\fB\-\-iptables\-sync\-period\fP=30s
+	The maximum interval of how often iptables rules are refreshed (e.g. '5s', '1m', '2h22m').  Must be greater than 0.
+
+.PP
+\fB\-\-ipvs\-exclude\-cidrs\fP=[]
+	A comma\-separated list of CIDR's which the ipvs proxier should not touch when cleaning up IPVS rules.
+
+.PP
+\fB\-\-ipvs\-min\-sync\-period\fP=0s
+	The minimum interval of how often the ipvs rules can be refreshed as endpoints and services change (e.g. '5s', '1m', '2h22m').
+
+.PP
+\fB\-\-ipvs\-scheduler\fP=""
+	The ipvs scheduler type when proxy mode is ipvs
+
+.PP
+\fB\-\-ipvs\-strict\-arp\fP=false
+	Enable strict ARP by setting arp\_ignore to 1 and arp\_announce to 2
+
+.PP
+\fB\-\-ipvs\-sync\-period\fP=30s
+	The maximum interval of how often ipvs rules are refreshed (e.g. '5s', '1m', '2h22m').  Must be greater than 0.
+
+.PP
+\fB\-\-ipvs\-tcp\-timeout\fP=0s
+	The timeout for idle IPVS TCP connections, 0 to leave as\-is. (e.g. '5s', '1m', '2h22m').
+
+.PP
+\fB\-\-ipvs\-tcpfin\-timeout\fP=0s
+	The timeout for IPVS TCP connections after receiving a FIN packet, 0 to leave as\-is. (e.g. '5s', '1m', '2h22m').
+
+.PP
+\fB\-\-ipvs\-udp\-timeout\fP=0s
+	The timeout for IPVS UDP packets, 0 to leave as\-is. (e.g. '5s', '1m', '2h22m').
+
+.PP
+\fB\-\-kube\-api\-burst\fP=10
+	Burst to use while talking with kubernetes apiserver
+
+.PP
+\fB\-\-kube\-api\-content\-type\fP="application/vnd.kubernetes.protobuf"
+	Content type of requests sent to apiserver.
+
+.PP
+\fB\-\-kube\-api\-qps\fP=5
+	QPS to use while talking with kubernetes apiserver
+
+.PP
+\fB\-\-kubeconfig\fP=""
+	Path to kubeconfig file with authorization information (the master location can be overridden by the master flag).
+
+.PP
+\fB\-\-log\_cadvisor\_usage\fP=false
+	Whether to log the usage of the cAdvisor container
+
+.PP
+\fB\-\-machine\_id\_file\fP="/etc/machine\-id,/var/lib/dbus/machine\-id"
+	Comma\-separated list of files to check for machine\-id. Use the first one that exists.
+
+.PP
+\fB\-\-masquerade\-all\fP=false
+	If using the pure iptables proxy, SNAT all traffic sent via Service cluster IPs (this not commonly needed)
+
+.PP
+\fB\-\-master\fP=""
+	The address of the Kubernetes API server (overrides any value in kubeconfig)
+
+.PP
+\fB\-\-max\_housekeeping\_interval\fP=1m0s
+	Largest interval to allow between container housekeepings
+
+.PP
+\fB\-\-metrics\-bind\-address\fP=127.0.0.1:10249
+	The IP address with port for the metrics server to serve on (set to '0.0.0.0:10249' for all IPv4 interfaces and '[::]:10249' for all IPv6 interfaces). Set empty to disable.
+
+.PP
+\fB\-\-metrics\-port\fP=10249
+	The port to bind the metrics server. Use 0 to disable.
+
+.PP
+\fB\-\-nodeport\-addresses\fP=[]
+	A string slice of values which specify the addresses to use for NodePorts. Values may be valid IP blocks (e.g. 1.2.3.0/24, 1.2.3.4/32). The default empty string slice ([]) means to use all local addresses.
+
+.PP
+\fB\-\-oom\-score\-adj\fP=\-999
+	The oom\-score\-adj value for kube\-proxy process. Values must be within the range [\-1000, 1000]
+
+.PP
+\fB\-\-profiling\fP=false
+	If true enables profiling via web interface on /debug/pprof handler.
+
+.PP
+\fB\-\-proxy\-mode\fP=
+	Which proxy mode to use: 'userspace' (older) or 'iptables' (faster) or 'ipvs' or 'kernelspace' (windows). If blank, use the best\-available proxy (currently iptables). If the iptables proxy is selected, regardless of how, but the system's kernel or iptables versions are insufficient, this always falls back to the userspace proxy.
+
+.PP
+\fB\-\-proxy\-port\-range\fP=
+	Range of host ports (beginPort\-endPort, single port or beginPort+offset, inclusive) that may be consumed in order to proxy service traffic. If (unspecified, 0, or 0\-0) then ports will be randomly chosen.
+
+.PP
+\fB\-\-referenced\_reset\_interval\fP=0
+	Reset interval for referenced bytes (container\_referenced\_bytes metric), number of measurement cycles after which referenced bytes are cleared, if set to 0 referenced bytes are never cleared (default: 0)
+
+.PP
+\fB\-\-show\-hidden\-metrics\-for\-version\fP=""
+	The previous version for which you want to show hidden metrics. Only the previous minor version is meaningful, other values will not be allowed. The format is \&., e.g.: '1.16'. The purpose of this format is make sure you have the opportunity to notice if the next release hides additional metrics, rather than being surprised when they are permanently removed in the release after that.
+
+.PP
+\fB\-\-storage\_driver\_buffer\_duration\fP=1m0s
+	Writes in the storage driver will be buffered for this duration, and committed to the non memory backends as a single transaction
+
+.PP
+\fB\-\-storage\_driver\_db\fP="cadvisor"
+	database name
+
+.PP
+\fB\-\-storage\_driver\_host\fP="localhost:8086"
+	database host:port
+
+.PP
+\fB\-\-storage\_driver\_password\fP="root"
+	database password
+
+.PP
+\fB\-\-storage\_driver\_secure\fP=false
+	use secure connection with database
+
+.PP
+\fB\-\-storage\_driver\_table\fP="stats"
+	table name
+
+.PP
+\fB\-\-storage\_driver\_user\fP="root"
+	database username
+
+.PP
+\fB\-\-udp\-timeout\fP=250ms
+	How long an idle UDP connection will be kept open (e.g. '250ms', '2s').  Must be greater than 0. Only applicable for proxy\-mode=userspace
+
+.PP
+\fB\-\-update\_machine\_info\_interval\fP=5m0s
+	Interval between machine info updates.
+
+.PP
+\fB\-\-version\fP=false
+	Print version information and quit
+
+.PP
+\fB\-\-write\-config\-to\fP=""
+	If set, write the default configuration values to this file and exit.
+
+
+.SH HISTORY
+.PP
+January 2015, Originally compiled by Eric Paris (eparis at redhat dot com) based on the kubernetes source material, but hopefully they have been automatically generated since!
