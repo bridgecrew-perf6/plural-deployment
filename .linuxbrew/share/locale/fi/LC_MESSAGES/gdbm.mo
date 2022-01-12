@@ -1,0 +1,1 @@
+../../../../Cellar/gdbm/1.22/share/locale/fi/LC_MESSAGES/gdbm.mo
