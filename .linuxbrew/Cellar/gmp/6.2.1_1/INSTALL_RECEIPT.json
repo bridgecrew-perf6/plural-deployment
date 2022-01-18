@@ -1,3 +1,52 @@
+<<<<<<< HEAD
 version https://git-lfs.github.com/spec/v1
 oid sha256:3b66c5fb8e6f43eea29f9369fd8af61d14d599f690c78a8d69492f28174a6c76
 size 1005
+=======
+{
+  "homebrew_version": "3.2.12-76-gbfd6050",
+  "used_options": [
+
+  ],
+  "unused_options": [
+
+  ],
+  "built_as_bottle": true,
+  "poured_from_bottle": true,
+  "installed_as_dependency": true,
+  "installed_on_request": false,
+  "changed_files": [
+    "lib/pkgconfig/gmp.pc",
+    "lib/pkgconfig/gmpxx.pc"
+  ],
+  "time": 1641605329,
+  "source_modified_time": 1605379535,
+  "stdlib": "libstdcxx",
+  "compiler": "gcc-5",
+  "aliases": [
+
+  ],
+  "runtime_dependencies": [
+
+  ],
+  "source": {
+    "spec": "stable",
+    "versions": {
+      "stable": "6.2.1",
+      "head": null,
+      "version_scheme": 0
+    },
+    "path": "/home/ec2-user/plural-deployment/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/gmp.rb",
+    "tap_git_head": "436d9de2158d981c31a4910670ceb18a73c0c355",
+    "tap": "homebrew/core"
+  },
+  "arch": "x86_64",
+  "built_on": {
+    "os": "Linux",
+    "os_version": "Ubuntu 16.04.7",
+    "cpu_family": "haswell",
+    "glibc_version": "2.23",
+    "oldest_cpu_family": "core2"
+  }
+}
+>>>>>>> c97d1275254d9502646327b4ba1788f682f7f7a9
